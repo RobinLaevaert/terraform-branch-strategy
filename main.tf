@@ -40,3 +40,21 @@ module "postgres" {
 
   depends_on = [ azurerm_virtual_network.vn ]
 }
+
+module "datahub" {
+  source = "./modules/datahub"
+
+  datahub-prerequisites-values-file = var.datahub-prerequisites-values-file
+  datahub-values-file               = var.datahub-values-file
+  neo4j_username                    = var.neo4j_username
+  neo4j_password                    = var.neo4j_password
+  postgres_password                 = module.postgres.admin_password
+  postgres_flexible_server_id       = module.postgres.server_id
+  postgres_db_name                  = var.postgres_db_name
+  postgres_fqdn                     = module.postgres.fqdn
+  postgres_login                    = module.postgres.admin_login
+  datahub_root_user                 = var.datahub_root_user
+  datahub_root_user_password        = var.datahub_root_user_password
+
+  depends_on = [module.aks, module.postgres]
+}
