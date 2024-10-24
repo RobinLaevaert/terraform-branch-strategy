@@ -3,7 +3,7 @@ data "azurerm_resource_group" "rg-tfworkshops" {
 }
 
 locals {
-  location = "ita-north"
+  location = "italynorth"
 }
 
 resource "azurerm_virtual_network" "vn" {
